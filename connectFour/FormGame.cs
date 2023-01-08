@@ -13,11 +13,11 @@ namespace connectFour
 {
     public partial class FormGame : Form
     {
-        Image imgRedCircle, imgOrangeCircle;
+        Image imgRedCircle, imgOrangeCircle, imgClearCell;
         int SIZE = 7;
         int[,] field = new int[7, 7];           //поле 7х7
         int pl = 2;                             //игрок
-        string[] member = {"Игрок1","Игрок2" };
+        string[] players = {"Игрок1","Игрок2" };
 
        
 
@@ -28,6 +28,15 @@ namespace connectFour
             dataGridViewField.Rows.Add(SIZE);
             imgRedCircle = Bitmap.FromFile("images/Red.png");       //ввод картинок кругов доработаю во второй версии, чесна
             imgOrangeCircle = Bitmap.FromFile("images/orange.png");
+            imgClearCell = Bitmap.FromFile("images/fond.png");
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    dataGridViewField.Rows[i].Cells[j].Value = imgClearCell;
+                }
+            }
+            
         }
 
 
@@ -127,7 +136,7 @@ namespace connectFour
                 showField(field);
                 if (isGameOver(field) == true)
                 {
-                    MessageBox.Show("Победил " + member[pl - 1]);
+                    MessageBox.Show("Победил " + players[pl - 1]);
                     this.Close();
                 }
             }
