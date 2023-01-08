@@ -26,7 +26,7 @@ namespace connectFour
         {
             InitializeComponent();
             dataGridViewField.Rows.Add(SIZE);
-            imgRedCircle = Bitmap.FromFile("images/Red.png");       //ввод картинок кругов доработаю во второй версии, чесна
+            imgRedCircle = Bitmap.FromFile("images/Red.png");
             imgOrangeCircle = Bitmap.FromFile("images/orange.png");
             imgClearCell = Bitmap.FromFile("images/fond.png");
             for (int i = 0; i < SIZE; i++)
@@ -49,12 +49,10 @@ namespace connectFour
                     if (mas[i, j] == 1)
                     {
                         dataGridViewField.Rows[i].Cells[j].Value = imgOrangeCircle;
-                        //dataGridViewField.Rows[i].Cells[j].Style.BackColor = Color.Orange;
                     }
                     if (mas[i, j] == 2)
                     {
                         dataGridViewField.Rows[i].Cells[j].Value = imgRedCircle;
-                        //dataGridViewField.Rows[i].Cells[j].Style.BackColor = Color.OrangeRed;
                     }
                 }
 
@@ -73,7 +71,7 @@ namespace connectFour
                     if (mas[i + 1, j] == 0 && mas[i, j] == pl)
                     {
                         mas[i, j] = 0;
-                        MessageBox.Show("Выберите нижнюю свободную ячейку!"); //в случае если игрок неверно ходит, автоматическое падение шаров тоже во 2 версии(если смогу)
+                        MessageBox.Show("Выберите нижнюю свободную ячейку!"); //в случае если игрок неверно ходит, реализовать падение шаров не смог
                         pl = pl % 2 + 1; //это чтоб после невeрного хода не менялся игрок
                     }
                 }
@@ -132,6 +130,12 @@ namespace connectFour
                 pl = pl % 2 + 1;   //смена хода игрока
                 field[e.RowIndex, e.ColumnIndex] = pl;
                 rightStep(field);
+
+                string color1 = " (Оранжевый)";
+                string color2 = " (Красный)";
+                if (pl == 1) label2.Text = "Игрок " + (pl % 2 + 1).ToString() + color2; //напоминание чей сейчас ход.
+                else label2.Text = "Игрок " + (pl % 2 + 1).ToString() + color1;
+
 
                 showField(field);
                 if (isGameOver(field) == true)
